@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Reducing Balance Interest Rate</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50; /* A pleasant green */
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        .form-group {
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 0.95em;
+        }
+        .form-group input[type="number"],
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box; /* Include padding in width */
+        }
+        .form-group input[type="text"][readonly] {
+            background-color: #e9e9e9; /* Gray background for display-only fields */
+            color: #666;
+            cursor: default;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            background-color: #4CAF50; /* Green submit button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 25px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Calculate Reducing Balance Interest Rate</h1>
+
+        <form id="rbmCalculatorForm" action="{{ url_for('SLMtoRBM') }}" method="POST">
+            <div class="form-group">
+                <label for="principalAmount">Principal Loan Amount:</label>
+                <input type="number" id="principalAmount" name="principalAmount" step="any" required value={{principalAmount_str}}>
+            </div>
+
+            <div class="form-group">
+                <label for="slmRate">SLM Annual Interest Rate (%):</label>
+                <input type="number" id="slmRate" name="slmRate" step="any" required value ={{slmRate}}>
+            </div>
+
+            <div class="form-group">
+                <label for="loanTenure">Loan Tenure (years):</label>
+                <input type="number" id="loanTenure" name="loanTenure" step="any" required value={{loanTenure}}>
+            </div>
+
+            <button type="submit" >Submit</button>
+
+           
+
+            <div class="form-group">
+                <label for="rbmAnnualRate">Equivalent RBM Annual Rate:</label>
+                <input type="text" readonly id="rbmAnnualRate" name="rbmAnnualRate"  value ={{ result_rbm }} >
+
+            <div class="form-group" style="margin-top: 30px;">
+                <label for="targetEmiSLM">Target EMI (SLM Equivalent):</label>
+                <input type="text" readonly id="targetEmiSLM" name="targetEmiSLM" value={{ target_emi_slm }} >
+            </div>
+            </div>
+        </form>
+    </div>
+    
+
+    <!---script>
+        // This JavaScript is for demonstration of form submission and
+        // is where you would integrate with your APEX backend logic.
+
+        document.getElementById('rbmCalculatorForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get input values
+            const principal = parseFloat(document.getElementById('principalAmount').value);
+            const slmRate = parseFloat(document.getElementById('slmRate').value);
+            const tenure = parseFloat(document.getElementById('loanTenure').value);
+
+            // Basic validation (more robust validation should be done on the server/APEX side)
+            if (isNaN(principal) || isNaN(slmRate) || isNaN(tenure) || principal <= 0 || slmRate < 0 || tenure <= 0) {
+                alert('Please enter valid positive numeric values for Principal, SLM Rate, and Tenure.');
+                return;
+            }
+
+            // In a real APEX application, you would typically:
+            // 1. Trigger a Dynamic Action (e.g., on button click)
+            // 2. Execute PL/SQL code (your NEWTON_RAPHSON_RBM_RATE function)
+            // 3. Pass P1_PRINCIPAL, P1_SLM_RATE, P1_TENURE_YEARS as parameters
+            // 4. Get the results into P1_TARGET_EMI_SLM and P1_RBM_ANNUAL_RATE
+            // 5. Refresh the display fields.
+
+            // For this HTML-only demo, we'll just simulate setting values
+            // Replace this with actual integration with your PL/SQL function in APEX
+            console.log('Form submitted with:', { principal, slmRate, tenure });
+
+            // Simulate calculation (replace with actual call to your PL/SQL function)
+            // For example: apex.server.process('CALCULATE_RBM_RATE', {
+            //   x01: principal, x02: slmRate, x03: tenure
+            // }, {
+            //   success: function(pData) {
+            //     document.getElementById('targetEmiSLM').value = pData.target_emi;
+            //     document.getElementById('rbmAnnualRate').value = pData.rbm_rate;
+            //   }
+            // });
+
+            document.getElementById('targetEmiSLM').value = '5,000.00 (Simulated)'; // Placeholder
+            document.getElementById('rbmAnnualRate').value = '12.34% (Simulated)'; // Placeholder
+        });
+    </script-->
+</body>
+</html>
