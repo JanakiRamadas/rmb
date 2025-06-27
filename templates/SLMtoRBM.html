@@ -72,12 +72,14 @@
 <body>
     
     <div class="container">
+        <img src="{{ url_for('static', filename='images/dowell_Logo.jpg') }}" alt="Dowell logo" class="logo">
         <h1>Calculate Reducing Balance Interest Rate</h1>
+        <h4 style = "color: red;">Note: This is only a Proof of Concept, NOT a full fledged application</h4>
 
         <form id="rbmCalculatorForm" action="{{ url_for('SLMtoRBM') }}" method="POST">
             <div class="form-group">
                 <label for="principalAmount">Principal Loan Amount:</label>
-                <input type="number" id="principalAmount" name="principalAmount" step="any" required value={{principalAmount_str}}>
+                <input type="number" id="principalAmount" name="principalAmount" step="any" required value={{principalAmount}}>
             </div>
 
             <div class="form-group">
