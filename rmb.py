@@ -177,7 +177,10 @@ def SLMtoRBM():
 		return render_template('SLMtoRBM.html')
 	return render_template('SLMtoRBM.html')
 
-
+@rmb.route('/ping') # Choose a unique, simple path like /ping or /health
+def health_check():
+    return "OK", 200 # Returns "OK" with a 200 OK status code
+    # return "Success", 200 # Another option
 
 
 
