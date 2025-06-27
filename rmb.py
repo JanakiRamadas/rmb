@@ -171,7 +171,7 @@ def SLMtoRBM():
 			else:
 				print("\nCould not find an equivalent RBM rate. Please check inputs or adjust initial guess/tolerance.")
 			
-			return render_template('SLMtoRBM.html',principalAmount_str=principalAmount,
+			return render_template('SLMtoRBM.html',principalAmount=principalAmount,
 				slmRate=slmRate,loanTenure=loanTenure,target_emi_slm=round(target_emi_slm,2), result_rbm=round(result_rbm,2))
 	else:
 		return render_template('SLMtoRBM.html')
